@@ -11,7 +11,11 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
 
 config = json.load(open("./config.json"))
-
+"""
+My name is Marcos and I developed a code with the aim of facilitating 
+the creation of connections on LinkedIn in an automated way, 
+in order to help people expand their network of contacts.
+"""
 def iniciar_chrome():
     options = webdriver.ChromeOptions()
     options.add_argument("--profile-directory=Default")
@@ -34,9 +38,9 @@ def logando():
     password = driver.find_element(By.ID,'password')
     password.send_keys(config["login"]["password"])
     sleep(0.5)
-    logar = driver.find_element(By.CSS_SELECTOR,'button.btn__primary--large[aria-label="Entrar"]')
-    logar.click()
-    print("CONTA LOGADA!!")
+    login = driver.find_element(By.CSS_SELECTOR,'button.btn__primary--large[aria-label="Entrar"]')
+    login.click()
+    print("CONTA LOGADA // LOGGED ACCOUNT")
     sleep(6)
     cargo = driver.find_element(By.CLASS_NAME,"search-global-typeahead__input")
     cargo.send_keys(config["login"]["cargo"])
@@ -51,7 +55,7 @@ def logando():
             sleep(10)
             conectar = driver.find_elements(By.XPATH,'//span[@class="artdeco-button__text" and text()="Conectar"]')
             if conectar:
-                print("FAZENDO CONEXÕES")
+                print("FAZENDO CONEXÕES // MAKING CONNECTIONS")
                 for elemento in conectar:
                     sleep(2)
                     elemento.click()
@@ -59,14 +63,14 @@ def logando():
                     try:
                         enviar = driver.find_element(By.XPATH,'//span[text()="Enviar"]/..')
                         enviar.click()
-                        print("CONEXÃO ENVIADA!") 
+                        print("CONEXÃO ENVIADA // CONNECTION SENT") 
                     except:
-                        print("Botão não encontrado.")
+                        print("CONEXÃO NÃO ENCONTRADA // CONNECTION NOT FOUND")
                         sleep(9)
 
 
             else:
-                print("PRÓXIMA PÁGINA")
+                print("PRÓXIMA PÁGINA // NEXT PAGE")
                 sleep(1)
                 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 sleep(3)
