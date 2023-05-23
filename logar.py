@@ -42,10 +42,36 @@ def logando():
     cargo.send_keys(config["login"]["cargo"])
     sleep(1)
     cargo.send_keys(Keys.ENTER)
+    sleep(7)
+    people = driver.find_element(By.XPATH,"//button[text()='Pessoas']")
+    people.click()
     sleep(5)
-    element_li = driver.find_element(By.CLASS_NAME,"search-reusables__primary-filter")
-    element_button = element_li.find_element(By.XPATH,".//button[contains(@class, 'search-reusables__filter-pill-button') and contains(text(), 'Pessoas')]")
-    element_button.click()
-    sleep(1000)
+    def conectar():
+        while True:
+            sleep(10)
+            conectar = driver.find_elements(By.XPATH,'//span[@class="artdeco-button__text" and text()="Conectar"]')
+            if conectar:
+                print("FAZENDO CONEXÕES")
+                for elemento in conectar:
+                    sleep(2)
+                    elemento.click()
+                    sleep(3)
+                    try:
+                        enviar = driver.find_element(By.XPATH,'//span[text()="Enviar"]/..')
+                        enviar.click()
+                        print("CONEXÃO ENVIADA!") 
+                    except:
+                        print("Botão não encontrado.")
+                        sleep(9)
 
+
+            else:
+                print("PRÓXIMA PÁGINA")
+                sleep(1)
+                driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                sleep(3)
+                botao = driver.find_element(By.CSS_SELECTOR,"button.artdeco-pagination__button--next")
+                botao.click()
+    conectar()        
+        
 logando()
