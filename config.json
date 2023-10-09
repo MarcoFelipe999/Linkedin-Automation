@@ -2,6 +2,7 @@
     "login": {
         "username":"email@gmail.com",
         "password":"senha",
-        "cargo":"Programador"
+        "cargo":"Programador",
+        "conexoes": 20
     }
 }

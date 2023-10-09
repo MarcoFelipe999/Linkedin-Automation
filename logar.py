@@ -10,7 +10,10 @@ import pyautogui
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
 
+
 config = json.load(open("./config.json"))
+count = 0
+
 """
 My name is Marcos and I developed a code with the aim of facilitating 
 the creation of connections on LinkedIn in an automated way, 
@@ -51,6 +54,7 @@ def logando():
     people.click()
     sleep(5)
     def conectar():
+        global count
         while True:
             sleep(10)
             conectar = driver.find_elements(By.XPATH,'//span[@class="artdeco-button__text" and text()="Conectar"]')
@@ -63,7 +67,13 @@ def logando():
                     try:
                         enviar = driver.find_element(By.XPATH,'//span[text()="Enviar"]/..')
                         enviar.click()
-                        print("CONEXÃO ENVIADA // CONNECTION SENT") 
+                        print("CONEXÃO ENVIADA // CONNECTION SENT")
+                        count =+ 1  
+                        qtd = config['login']['conexoes']
+                        if count == qtd:
+                            print(f"BOT CLOSED (TOTAL CONEXÕES {qtd})\n Thanks <3")
+                            driver.quit()
+                            
                     except:
                         print("CONEXÃO NÃO ENCONTRADA // CONNECTION NOT FOUND")
                         sleep(9)
